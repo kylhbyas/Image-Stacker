@@ -6,7 +6,7 @@
  - 
  - Basic readme for Image stacker assignment
  -->
-# Team Six Appeal Assignment
+# Team Six Appeal Image Stacker
 
 Name: Kyle Byassee & Darren Clark
 
@@ -38,11 +38,14 @@ Does the program expect any inputs?
 * The programs will prompt the user for input.
 
 ## Notes
-##* What is working?
-##  * The programs are working as intended.
+<!--
+* What is working?
+  * The programs are working as intended.
 
-##* What are the limitations of the programs?
-##  * No known limitations are known at this time.
+* What are the limitations of the programs?
+  * No known limitations are known at this time.
 
-##* What were some design decisions?
-##  * Consistency was the primary consideration.
+* What were some design decisions?
+  * Consistency was the primary consideration.
+
+-->
