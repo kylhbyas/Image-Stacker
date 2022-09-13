@@ -1,10 +1,11 @@
-#
-# @file README.md
-# @author Kyle Byassee
-# @date 2022-09-13
-# @brief ReadMe file
-# 
-# Basic readme for Image stacker assignment
+<!--
+ - @file README.md
+ - @author Kyle Byassee
+ - @date 2022-09-13
+ - @brief ReadMe file
+ - 
+ - Basic readme for Image stacker assignment
+ -->
 # Team Six Appeal Assignment
 
 Name: Kyle Byassee & Darren Clark
