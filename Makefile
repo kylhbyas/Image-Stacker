@@ -20,15 +20,15 @@ default: all
 all: $(TARGET)
 
 #The executable to be compiled
-$(TARGET): main.o ##Vector.o
+$(TARGET): main.o stacker.o
 	$(CC) main.o -o $(TARGET)
 
 #The binary of the class def
-##Vector.o: Vector.cpp Vector.h
+stacker.o: stacker.cpp stacker.h
 ##	$(CC) $(CFLAGS) Vector.cpp
 
 #The binary of the main file
-main.o: main.cpp ##Vector.h
+main.o: main.cpp stacker.h
 	$(CC) $(CFLAGS) main.cpp
 
 # Invoked with 'make clean'
