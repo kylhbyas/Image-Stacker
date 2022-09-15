@@ -33,7 +33,8 @@ int main() {  // might need to take an argument
        << "Stacking images:" << endl;
   
   stacker one;
-  //one.load_data(img_name);  
+  int size = one.load_data(img_name);
+  one.write_data(img_name, size);
 
   cout << "Stacking succeeded." << endl;
   //   << "Output written to: " << endl;

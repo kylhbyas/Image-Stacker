@@ -1,35 +1,41 @@
 #
 # @file Makefile
 # @author Kyle Byassee
-# @date 2022-09-06
+# @date 2022-09-13
 # @brief Makefile
 # 
 # A Makefile for testing
 #
 
-# The compiler g++
-CC = g++
-
 # The build target
 TARGET = test
 
-# Compilation flags - Compiles with all errors and warnings
-CFLAGS = -g -c -Wall -Wextra
+# The compiler g++
+CC = g++
+
+# General compilation flags - Compiles with all errors and warnings
+CFLAGS = -g -Wall -Wextra
+
+# Compiles and Assembles without Linking
+CFLAGSC = $(CFLAGS) -c
+
+# Compiles and Links
+CFLAGSO = $(CFLAGS) -o $(TARGET)
 
 default: all
 all: $(TARGET)
 
 #The executable to be compiled
-$(TARGET): main.o stacker.o
-	$(CC) main.o -o $(TARGET)
+$(TARGET): stacker.o main.o
+	$(CC) $(CFLAGSO) stacker.o main.o
 
 #The binary of the class def
 stacker.o: stacker.cpp stacker.h
-##	$(CC) $(CFLAGS) Vector.cpp
+	$(CC) $(CFLAGSC) stacker.cpp
 
 #The binary of the main file
 main.o: main.cpp stacker.h
-	$(CC) $(CFLAGS) main.cpp
+	$(CC) $(CFLAGSC) main.cpp
 
 # Invoked with 'make clean'
 clean:
