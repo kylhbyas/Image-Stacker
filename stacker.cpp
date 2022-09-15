@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 
+using namespace std;
+
 // Constructor
 // stacker::stacker() {
 //   magic_number = "P3";
@@ -10,45 +12,44 @@
 //   height = 1;
 //   max_color = 255;
 
-//   pixel.red = 0;
-//   pixel.green = 0;
-//   pixel.blue = 0;
+//   pixels.push_back(height);
 // }
 
 int stacker::load_data(std::string filename) {
-  std::ifstream in;
-  int num_rows = 0;
+  ifstream in;
 
-  std::string nameOfFile = "ppms" + '/' + filename + '/' + filename + "_0" + "01" + ".ppm"; // needs revision
-  std::cout << std::endl << std::endl << nameOfFile << std::endl;
+  string nameOfFile = "ppms/" + filename;
+  
+  // String stream here instead...
+  //string nameOfFile = "ppms/" + filename + '/' + filename + "_0" + "01" + ".ppm"; // needs revision
+  //cout << endl << nameOfFile << endl;
   
   in.open(nameOfFile);
+  
   // image header
-  in >> magic_number;
-  in >> width;
-  in >> height;
-  in >> max_color;
+  in >> magic_number
+     >> width >> height
+     >> max_color;
   // end of image header
-
-
+  
   // image body
-  in >> pixel.red;
-  while(in) {
-    in >> pixel.green;
-    in >> pixel.blue; // Correct until after this line
-
-    num_rows++;
-    in >> pixel.red;
+  for(int i = 0; i < (width * height); i++) {
+    cout << "hi from before extraction" << endl;
+    in >> pixels[i].red >> pixels[i].green >> pixels[i].blue; // Seg fault on this line
+    cout << "hi from after extraction" << endl;
   }
-  in.close();
   // end of image body
+  in.close();
 
-  return num_rows; // Should be 600 && equal to height
+  int num_pix = pixels.size();
+  
+  return num_pix; // Should be 600 && equal to height
 }
 
 void stacker::write_data(std::string filename, int size) {
-  std::ofstream out;
-  std::string newFile = filename.append(".ppm");
+  ofstream out;
+  string newFile = filename.append(".ppm"); // used to get rid of unused warning
+  newFile = "test.ppm";
   
   out.open(newFile);
   out << magic_number << '\n'
@@ -56,8 +57,8 @@ void stacker::write_data(std::string filename, int size) {
       << max_color << '\n';
   
   for(int i = 1; i <= size; i++) {
-    out << pixel.red << ' ' << pixel.green << ' ' << pixel.blue << '\n';
+    out << pixels[i].red << ' ' << pixels[i].green << ' ' << pixels[i].blue << '\n';
   }
   out.close();
-  std::cout << "Output written to: " << newFile << std::endl;
+  cout << "Output written to: " << newFile << endl;
 }

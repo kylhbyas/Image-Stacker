@@ -22,7 +22,7 @@ int main() {  // might need to take an argument
   
   int num_images = 0;
   cout << "Please enter the number of images: ";
-  cin >> num_images;  // 10
+  cin >> num_images;
   
   while( (num_images > 10) || (num_images < 1) ) {
     cout << "Try again: ";
@@ -33,7 +33,9 @@ int main() {  // might need to take an argument
        << "Stacking images:" << endl;
   
   stacker one;
+  //cout << "created" << endl; // Good here
   int size = one.load_data(img_name);
+  cout << "loaded" << endl; // Seg fault above
   one.write_data(img_name, size);
 
   cout << "Stacking succeeded." << endl;

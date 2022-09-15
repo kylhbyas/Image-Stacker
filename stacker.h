@@ -16,9 +16,9 @@ private:
     int green = 0;
     int blue = 0;
   };
-  p pixel; // The initialization of a struct.
+  //p pixel; // The initialization of a struct.
   
-  //vector<struct> pixels; // A vector of pixel structs storing color information for the stacked image
+  std::vector<p> pixels; // A vector of pixel structs storing color information for the stacked image
 
  public:
   int load_data(std::string filename);

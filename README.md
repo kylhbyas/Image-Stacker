@@ -6,7 +6,7 @@
  - 
  - Basic readme for Image stacker assignment
  -->
-# Team Six Appeal Image Stacker
+# Image Stacker by Six Appeal
 
 Name: Kyle Byassee & Darren Clark
 
