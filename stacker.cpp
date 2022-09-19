@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -15,38 +16,51 @@ using namespace std;
 //   pixels.push_back(height);
 // }
 
-int stacker::load_data(std::string filename) {
+void stacker::load_data(std::string filename) {
   ifstream in;
 
   string nameOfFile = "ppms/" + filename;
   
-  // String stream here instead...
-  //string nameOfFile = "ppms/" + filename + '/' + filename + "_0" + "01" + ".ppm"; // needs revision
+  //stringstream nameOfFile << "ppms/" << filename << '/'
+  //                        << filename << "_" << "001" << ".ppm"; // needs revision
   //cout << endl << nameOfFile << endl;
   
   in.open(nameOfFile);
-  
   // image header
   in >> magic_number
      >> width >> height
      >> max_color;
   // end of image header
   
+  pixels.reserve(width * height);
+  
   // image body
   for(int i = 0; i < (width * height); i++) {
-    cout << "hi from before extraction" << endl;
-    in >> pixels[i].red >> pixels[i].green >> pixels[i].blue; // Seg fault on this line
-    cout << "hi from after extraction" << endl;
+    in >> pixels[i].red >> pixels[i].green >> pixels[i].blue;
   }
   // end of image body
-  in.close();
-
-  int num_pix = pixels.size();
-  
-  return num_pix; // Should be 600 && equal to height
+  in.close();  
 }
 
-void stacker::write_data(std::string filename, int size) {
+// Averages the rgb values of each pixel stack
+void stacker::average(int denominator) {
+
+  int red_sum = 0;
+  int green_sum = 0;
+  int blue_sum = 0;
+
+  for(int i = 0; i < denominator; i++) {
+    red_sum += pixels[i].red;
+    green_sum += pixels[i].green;
+    blue_sum += pixels[i].blue;
+  }
+
+  
+
+  
+}
+
+void stacker::write_data(std::string filename) {
   ofstream out;
   string newFile = filename.append(".ppm"); // used to get rid of unused warning
   newFile = "test.ppm";
@@ -56,7 +70,8 @@ void stacker::write_data(std::string filename, int size) {
       << width << ' ' << height << '\n'
       << max_color << '\n';
   
-  for(int i = 1; i <= size; i++) {
+  for(int i = 0; i < (width * height); i++) {
+    //cout << pixels[i].red << ' ' << pixels[i].green << ' ' << pixels[i].blue << '\n';
     out << pixels[i].red << ' ' << pixels[i].green << ' ' << pixels[i].blue << '\n';
   }
   out.close();

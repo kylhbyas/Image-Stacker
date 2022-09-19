@@ -18,29 +18,28 @@ int main() {  // might need to take an argument
   cout << "Please enter the image you wish to stack: ";
   cin >> img_name;
   
-  cout << endl;
-  
   int num_images = 0;
-  cout << "Please enter the number of images: ";
+  cout << endl
+       << "Please enter the number of images: ";
   cin >> num_images;
   
   while( (num_images > 10) || (num_images < 1) ) {
     cout << "Try again: ";
-    cin >> img_name;
+    cin >> num_images;
   }
+
+  stacker Stacky_McStackyface;
   
   cout << endl
        << "Stacking images:" << endl;
   
-  stacker one;
-  //cout << "created" << endl; // Good here
-  int size = one.load_data(img_name);
-  cout << "loaded" << endl; // Seg fault above
-  one.write_data(img_name, size);
-
+  Stacky_McStackyface.load_data(img_name);
   cout << "Stacking succeeded." << endl;
-  //   << "Output written to: " << endl;
-  // Stuff again..
+
+  Stacky_McStackyface.average(num_images);
+  
+  Stacky_McStackyface.write_data(img_name);
+  //cout << "Output written to: " << img_name + ".ppm" << endl;
   
   return 0;
 }
