@@ -1,8 +1,6 @@
 #include "stacker.h"
 #include <iostream>
 #include <fstream>
-#include <string>
-#include <sstream>
 
 using namespace std;
 
@@ -16,16 +14,10 @@ using namespace std;
 //   pixels.push_back(height);
 // }
 
-void stacker::load_data(std::string filename) {
+void stacker::load_data(string filename) {
   ifstream in;
-
-  string nameOfFile = "ppms/" + filename;
   
-  //stringstream nameOfFile << "ppms/" << filename << '/'
-  //                        << filename << "_" << "001" << ".ppm"; // needs revision
-  //cout << endl << nameOfFile << endl;
-  
-  in.open(nameOfFile);
+  in.open(filename);
   // image header
   in >> magic_number
      >> width >> height
@@ -39,31 +31,54 @@ void stacker::load_data(std::string filename) {
     in >> pixels[i].red >> pixels[i].green >> pixels[i].blue;
   }
   // end of image body
-  in.close();  
+  in.close();
+
+  //vector<stacky> temp_pixels((width * height), 0);
+
+  // for(int i = 0; i < temp_pixels.size(); i++) {
+  //   temp_pixels[i].r = pixels[i].red;
+  //   temp_pixels[i].g = pixels[i].green;
+  //   temp_pixels[i].b = pixels[i].blue;
+  // }
+
+  // return temp_pixels;
 }
 
-// Averages the rgb values of each pixel stack
-void stacker::average(int denominator) {
+void stacker::average(int denominator, int index, stacker stack) {
+  if(index == 1) {  // assignment operator overload?
+    magic_number = stack.magic_number;
+    width = stack.width;
+    height = stack.height;
+    max_color = stack.max_color;
 
-  int red_sum = 0;
-  int green_sum = 0;
-  int blue_sum = 0;
+    pixels.reserve(width * height);
 
-  for(int i = 0; i < denominator; i++) {
-    red_sum += pixels[i].red;
-    green_sum += pixels[i].green;
-    blue_sum += pixels[i].blue;
+    for(int i = 0; i < pixels.size(); i++) {
+      pixels[i].red = 0;
+      pixels[i].green = 0;
+      pixels[i].blue = 0;
+    }
+  }
+  
+  for(int i = 0; i < stack.pixels.size(); i++) { // sums values each time average() is called
+    pixels[i].red += stack.pixels[i].red;
+    pixels[i].green += stack.pixels[i].green;
+    pixels[i].blue += stack.pixels[i].blue;
   }
 
-  
-
-  
+  if(index == denominator) {  // Averages on last call
+    for(int i = 0; i < (width * height); i++) {
+      pixels[i].red /= denominator;
+      pixels[i].green /= denominator;
+      pixels[i].blue /= denominator;
+    }
+  }
 }
 
 void stacker::write_data(std::string filename) {
   ofstream out;
-  string newFile = filename.append(".ppm"); // used to get rid of unused warning
-  newFile = "test.ppm";
+  string newFile = filename.append(".ppm");
+  newFile = "test.ppm";  // Temporary file name
   
   out.open(newFile);
   out << magic_number << '\n'
@@ -75,5 +90,4 @@ void stacker::write_data(std::string filename) {
     out << pixels[i].red << ' ' << pixels[i].green << ' ' << pixels[i].blue << '\n';
   }
   out.close();
-  cout << "Output written to: " << newFile << endl;
 }

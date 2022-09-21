@@ -15,15 +15,13 @@ private:
     int red = 0;
     int green = 0;
     int blue = 0;
-  };
-  //p pixel; // The initialization of a struct.
-  
+  };  
   std::vector<p> pixels; // A vector of pixel structs storing color information for the stacked image
 
  public:
   void load_data(std::string filename);
   
-  void average(int denominator);
+  void average(int denominator, int index, stacker stacked_pixels);
   
   void write_data(std::string filename);
 };

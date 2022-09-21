@@ -9,7 +9,7 @@
 
 #include "stacker.h"
 #include <iostream>
-#include <string>
+#include <sstream>
 
 using namespace std;
 
@@ -28,18 +28,33 @@ int main() {  // might need to take an argument
     cin >> num_images;
   }
 
-  stacker Stacky_McStackyface;
-  
   cout << endl
        << "Stacking images:" << endl;
-  
-  Stacky_McStackyface.load_data(img_name);
-  cout << "Stacking succeeded." << endl;
 
-  Stacky_McStackyface.average(num_images);
+  stringstream nameStream;
+
+  //vector<stacky> stacked_pixels;
+
+  stacker stack;
+  stacker averaged_stack;
   
-  Stacky_McStackyface.write_data(img_name);
-  //cout << "Output written to: " << img_name + ".ppm" << endl;
+  for(int i = 1; i <= num_images; i++) {
+    if(i < 10) {
+      nameStream << "ppms/" << img_name << '/'
+		 << img_name << '_' << "00" << i << ".ppm";
+    } else {
+      nameStream << "ppms/" << img_name << '/'
+		 << img_name << '_' << '0' << i << ".ppm";
+    }
+    string nameOfFile = nameStream.str();
+    
+    stack.load_data(nameOfFile);
+    averaged_stack.average(num_images, i, stack);
+  }
+  cout << "Stacking succeeded." << endl;
+  
+  averaged_stack.write_data(img_name);
+  cout << "Output written to: " << img_name + ".ppm" << endl;
   
   return 0;
 }
