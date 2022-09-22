@@ -54,6 +54,7 @@ int main() {  // might need to take an argument
   cout << "Stacking succeeded." << endl;
   
   averaged_stack.write_data(img_name);
+  //stack.write_data(img_name); // used to verify load and write
   cout << "Output written to: " << img_name + ".ppm" << endl;
   
   return 0;
