@@ -9,7 +9,7 @@ private:
   std::string magic_number = ""; // The P3 value
   int width = 0; // The image width: (600 rows) x (600 columns)
   int height = 0; // The image height
-  int max_color = 0; // The maximum color depth of the image: < 255
+  int max_color = 0; // The maximum color depth of the image: < 256
   
   struct p { // A struct containing three ints: red, green, and blue
     int red = 0;
@@ -21,7 +21,7 @@ private:
  public:
   void load_data(std::string filename);
   
-  void average(int denominator, int index, stacker stacked_pixels);
+  void average(int denominator, int index, stacker& stacked_pixels);//, std::vector<p> tally);
   
   void write_data(std::string filename);
 };

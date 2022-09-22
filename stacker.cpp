@@ -34,38 +34,60 @@ void stacker::load_data(string filename) { // Good see test.ppm
   in.close();
 }
 
-void stacker::average(int denominator, int index, stacker stack) {
+void stacker::average(int denominator, int index, stacker& stack); //, vector<p> tally) {
   if(index == 1) {  // assignment operator overload?
     magic_number = stack.magic_number;
     width = stack.width;
     height = stack.height;
     max_color = stack.max_color;
 
-    pixels.reserve(width * height);
+    for(int i = 0; i < (width * height); i++) {  // sets all elements to 0      
+      p temp_pix;
+      temp_pix.red = 0;
+      temp_pix.green = 0;
+      temp_pix.blue = 0;
 
-    for(int i = 0; i < (width * height); i++) {  // sets all elements to 0
-      cout << "hi" << endl;
-      //pixels.assign(1, 0); // assignment here
-      pixels[i].red = 0;
-      cout << "omg" << endl;
-      pixels[i].green = 0;
-      pixels[i].blue = 0;
-      cout << pixels[i].red << pixels[i].green << pixels[i].blue << endl;
+      pixels.push_back(temp_pix);
+    }
+
+    for(int i = 0; i < (width * height); i++) {  // sets all elements to 0      
+      p place;
+      place.red = 0;
+      place.green = 0;
+      place.blue = 0;
+    
+      //tally.push_back(place);
     }
   }
   
   for(int i = 0; i < (width * height); i++) { // sums values each time average() is called
-    pixels[i].red += stack.pixels[i].red;
-    pixels[i].green += stack.pixels[i].green;
-    pixels[i].blue += stack.pixels[i].blue;
-    cout << pixels[i].red << pixels[i].green << pixels[i].blue << endl;
+    if(stack.pixels[i].red != 0 || index == 1) {
+      pixels[i].red += stack.pixels[i].red;
+      //tally[i].red++;
+    }
+    if(stack.pixels[i].green != 0 || index == 1) {
+      pixels[i].green += stack.pixels[i].green;
+      //tally[i].green++;
+    }
+    if(stack.pixels[i].blue != 0 || index == 1) {
+      pixels[i].blue += stack.pixels[i].blue;
+      //tally[i].blue++;
+    }
   }
 
-  if(index == denominator) {  // Averages on last call
+  if(index == denominator) { // Divides on last call
     for(int i = 0; i < (width * height); i++) {
-      pixels[i].red /= denominator;
-      pixels[i].green /= denominator;
-      pixels[i].blue /= denominator;
+      //cout << pixels[i].red << ' ' << pixels[i].green << ' ' << pixels[i].blue << endl;
+       cout << tally[i].red << endl;
+      if(tally[i].red != 0) {
+	//pixels[i].red = pixels[i].red / tally[i].red;
+      }
+      if(tally[i].green != 0) {
+	//pixels[i].green = pixels[i].green / tally[i].green;
+      }
+      if(tally[i].blue != 0) {
+	//pixels[i].blue = pixels[i].blue / tally[i].blue;
+      }
     }
   }
 }

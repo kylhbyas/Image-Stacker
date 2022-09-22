@@ -33,10 +33,10 @@ int main() {  // might need to take an argument
 
   stringstream nameStream;
 
-  //vector<stacky> stacked_pixels;
-
   stacker stack;
   stacker averaged_stack;
+
+  //vector<p> tally;
   
   for(int i = 1; i <= num_images; i++) {
     if(i < 10) {
@@ -49,7 +49,7 @@ int main() {  // might need to take an argument
     string nameOfFile = nameStream.str();
     
     stack.load_data(nameOfFile);
-    averaged_stack.average(num_images, i, stack);
+    averaged_stack.average(num_images, i, stack); // , tally);
   }
   cout << "Stacking succeeded." << endl;
   
