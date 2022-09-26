@@ -19,9 +19,9 @@ private:
   std::vector<p> pixels; // A vector of pixel structs storing color information for the stacked image
 
  public:
-  void load_data(std::string filename);
+  void load_data(std::string filename, int index);
   
-  void average(int denominator, int index, stacker& stacked_pixels);//, std::vector<p> tally);
+  void average(int denominator, int index, stacker& stacked_pixels);
   
   void write_data(std::string filename);
 };

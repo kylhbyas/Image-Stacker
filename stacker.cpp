@@ -14,7 +14,7 @@ using namespace std;
 //   pixels.push_back(height);
 // }
 
-void stacker::load_data(string filename) { // Good see test.ppm
+void stacker::load_data(string filename, int index) {
   ifstream in;
   
   in.open(filename);
@@ -23,8 +23,10 @@ void stacker::load_data(string filename) { // Good see test.ppm
      >> width >> height
      >> max_color;
   // end of image header
-  
-  pixels.reserve(width * height);
+
+  if(index == 1) {
+    pixels.reserve(width * height);
+  }  
   
   // image body
   for(int i = 0; i < (width * height); i++) {
@@ -34,8 +36,8 @@ void stacker::load_data(string filename) { // Good see test.ppm
   in.close();
 }
 
-void stacker::average(int denominator, int index, stacker& stack); //, vector<p> tally) {
-  if(index == 1) {  // assignment operator overload?
+void stacker::average(int denominator, int index, stacker& stack) {
+  if(index == 1) { // First call
     magic_number = stack.magic_number;
     width = stack.width;
     height = stack.height;
@@ -49,60 +51,39 @@ void stacker::average(int denominator, int index, stacker& stack); //, vector<p>
 
       pixels.push_back(temp_pix);
     }
-
-    for(int i = 0; i < (width * height); i++) {  // sets all elements to 0      
-      p place;
-      place.red = 0;
-      place.green = 0;
-      place.blue = 0;
-    
-      //tally.push_back(place);
-    }
   }
-  
-  for(int i = 0; i < (width * height); i++) { // sums values each time average() is called
-    if(stack.pixels[i].red != 0 || index == 1) {
-      pixels[i].red += stack.pixels[i].red;
-      //tally[i].red++;
-    }
-    if(stack.pixels[i].green != 0 || index == 1) {
-      pixels[i].green += stack.pixels[i].green;
-      //tally[i].green++;
-    }
-    if(stack.pixels[i].blue != 0 || index == 1) {
-      pixels[i].blue += stack.pixels[i].blue;
-      //tally[i].blue++;
-    }
+
+  // sums values each time average() is called
+  for(int i = 0; i < (width * height); i++) {
+    pixels[i].red += stack.pixels[i].red;
+    pixels[i].green += stack.pixels[i].green;
+    pixels[i].blue += stack.pixels[i].blue;
   }
 
   if(index == denominator) { // Divides on last call
     for(int i = 0; i < (width * height); i++) {
-      //cout << pixels[i].red << ' ' << pixels[i].green << ' ' << pixels[i].blue << endl;
-       cout << tally[i].red << endl;
-      if(tally[i].red != 0) {
-	//pixels[i].red = pixels[i].red / tally[i].red;
-      }
-      if(tally[i].green != 0) {
-	//pixels[i].green = pixels[i].green / tally[i].green;
-      }
-      if(tally[i].blue != 0) {
-	//pixels[i].blue = pixels[i].blue / tally[i].blue;
-      }
+      pixels[i].red = pixels[i].red / denominator;
+      pixels[i].green = pixels[i].green / denominator;
+      pixels[i].blue = pixels[i].blue / denominator;
     }
   }
 }
 
-void stacker::write_data(std::string filename) { // Works good see test.ppm
+void stacker::write_data(std::string filename) {
   ofstream out;
   string newFile = filename.append(".ppm");
   
   out.open(newFile);
+  // image header
   out << magic_number << '\n'
       << width << ' ' << height << '\n'
       << max_color << '\n';
-  
+  // end of image header
+
+  // image body
   for(int i = 0; i < (width * height); i++) {
     out << pixels[i].red << ' ' << pixels[i].green << ' ' << pixels[i].blue << '\n';
   }
+  // end of image body
   out.close();
 }

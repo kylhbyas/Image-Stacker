@@ -13,14 +13,13 @@
 
 using namespace std;
 
-int main() {  // might need to take an argument
+int main() {
   string img_name = "";
   cout << "Please enter the image you wish to stack: ";
   cin >> img_name;
   
   int num_images = 0;
-  cout << endl
-       << "Please enter the number of images: ";
+  cout << "Please enter the number of images: ";
   cin >> num_images;
   
   while( (num_images > 10) || (num_images < 1) ) {
@@ -28,17 +27,16 @@ int main() {  // might need to take an argument
     cin >> num_images;
   }
 
-  cout << endl
-       << "Stacking images:" << endl;
+  cout << "Stacking images:" << endl;
 
   stringstream nameStream;
 
   stacker stack;
   stacker averaged_stack;
-
-  //vector<p> tally;
   
   for(int i = 1; i <= num_images; i++) {
+    nameStream.str("");
+    
     if(i < 10) {
       nameStream << "ppms/" << img_name << '/'
 		 << img_name << '_' << "00" << i << ".ppm";
@@ -47,14 +45,16 @@ int main() {  // might need to take an argument
 		 << img_name << '_' << '0' << i << ".ppm";
     }
     string nameOfFile = nameStream.str();
+
+    cout << '\t' << nameOfFile << endl;
     
-    stack.load_data(nameOfFile);
-    averaged_stack.average(num_images, i, stack); // , tally);
+    stack.load_data(nameOfFile, i);
+    averaged_stack.average(num_images, i, stack);
   }
-  cout << "Stacking succeeded." << endl;
+  cout << endl
+       << "Stacking succeeded." << endl;
   
   averaged_stack.write_data(img_name);
-  //stack.write_data(img_name); // used to verify load and write
   cout << "Output written to: " << img_name + ".ppm" << endl;
   
   return 0;
