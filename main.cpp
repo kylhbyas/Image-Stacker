@@ -1,3 +1,9 @@
+//???REMOVE ME BEFORE FINAL PUSH
+/*
+Anywhere you see ??? it means I have a note/question I want you to be sure and review.
+I believe control + s ??? will allow you to find all instances of ???.
+*/
+
 /**
  * @file main.cpp
  * @author Kyle Byassee
@@ -17,6 +23,7 @@
 
 using namespace std;
 
+//??? I don't think any comments are needed in main? Can maybe make a few comments on your logic being used?
 int main() {
   string img_name = "";
   cout << "Please enter the image you wish to stack: ";

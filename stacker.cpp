@@ -19,6 +19,7 @@ I believe control + s ??? will allow you to find all instances of ???.
 
 using namespace std;
 
+//??? I wasn't sure if you needed this below commented code or not so I didn't delete.
 // Constructor
 // stacker::stacker() {
 //   magic_number = "P3";
