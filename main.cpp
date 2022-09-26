@@ -1,10 +1,14 @@
 /**
  * @file main.cpp
  * @author Kyle Byassee
- * @date 2022-09-13
- * @brief Main
+ * @date 2022-09-26
+ * @brief This program takes a number of noisy images and 
+ * cleans them up to produce a final image that is noise free.
  * 
- * main
+ * By getting all rgb values from images, from a file, this 
+ * program will "stack" all rgb values. With a total value, 
+ * the program will then calculate their average and write that 
+ * to an output file which should produce a noise free image.
  */
 
 #include "stacker.h"

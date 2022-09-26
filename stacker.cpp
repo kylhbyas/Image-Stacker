@@ -1,3 +1,18 @@
+//???REMOVE ME BEFORE FINAL PUSH
+/*
+Anywhere you see ??? it means I have a note/question I want you to be sure and review.
+I believe control + s ??? will allow you to find all instances of ???.
+*/
+
+
+/**
+ * @file stacker.cpp
+ * @author Kyle Byassee
+ * @date 2022-09-26
+ * @brief File to implement the Stacker class.
+ * ??? I think @description for these aren't needed? 
+ */
+
 #include "stacker.h"
 #include <iostream>
 #include <fstream>
@@ -13,7 +28,7 @@ using namespace std;
 
 //   pixels.push_back(height);
 // }
-
+// 
 void stacker::load_data(string filename, int index) {
   ifstream in;
   
@@ -24,6 +39,7 @@ void stacker::load_data(string filename, int index) {
      >> max_color;
   // end of image header
 
+  ///??? This might be a good spot for a comment on what you're doing with the below if statement?
   if(index == 1) {
     pixels.reserve(width * height);
   }  
