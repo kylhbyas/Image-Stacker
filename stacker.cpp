@@ -1,16 +1,10 @@
-//???REMOVE ME BEFORE FINAL PUSH
-/*
-Anywhere you see ??? it means I have a note/question I want you to be sure and review.
-I believe control + s ??? will allow you to find all instances of ???.
-*/
-
-
 /**
  * @file stacker.cpp
  * @author Kyle Byassee
  * @date 2022-09-26
- * @brief File to implement the Stacker class.
- * ??? I think @description for these aren't needed? 
+ * @brief File to implement the stacker class.
+ * 
+ * The stacker class methods are implemented here.
  */
 
 #include "stacker.h"
@@ -19,17 +13,24 @@ I believe control + s ??? will allow you to find all instances of ???.
 
 using namespace std;
 
-//??? I wasn't sure if you needed this below commented code or not so I didn't delete.
-// Constructor
-// stacker::stacker() {
-//   magic_number = "P3";
-//   width = 1;
-//   height = 1;
-//   max_color = 255;
+//  Constructor
+stacker::stacker() {
+  magic_number = "P3";
+  width = 1;
+  height = 1;
+  max_color = 2;
 
-//   pixels.push_back(height);
-// }
-// 
+  for(int i = 0; i < (width * height); i++) {
+    pixel temp;
+    
+    temp.red = 0;
+    temp.green = 0;
+    temp.blue = 0;
+    
+    pixels.push_back(temp);
+  }
+}
+
 void stacker::load_data(string filename, int index) {
   ifstream in;
   
@@ -40,10 +41,10 @@ void stacker::load_data(string filename, int index) {
      >> max_color;
   // end of image header
 
-  ///??? This might be a good spot for a comment on what you're doing with the below if statement?
+  // Reserves the memory required store the pixel info
   if(index == 1) {
     pixels.reserve(width * height);
-  }  
+  }
   
   // image body
   for(int i = 0; i < (width * height); i++) {
@@ -55,28 +56,41 @@ void stacker::load_data(string filename, int index) {
 
 void stacker::average(int denominator, int index, stacker& stack) {
   if(index == 1) { // First call
+    // Sets the header
     magic_number = stack.magic_number;
     width = stack.width;
     height = stack.height;
     max_color = stack.max_color;
 
-    for(int i = 0; i < (width * height); i++) {  // sets all elements to 0      
-      p temp_pix;
-      temp_pix.red = 0;
-      temp_pix.green = 0;
-      temp_pix.blue = 0;
-
-      pixels.push_back(temp_pix);
+    // Sets all pixel values to 0 based on the area of the image
+    for(int i = 0; i < (width * height); i++) {
+      pixel temp;
+      
+      temp.red = 0;
+      temp.green = 0;
+      temp.blue = 0;
+      
+      pixels.push_back(temp);
     }
   }
 
-  // sums values each time average() is called
+  // Error checking
+  if(magic_number != stack.magic_number) {
+    if(width != stack.width) {
+      if(height != stack.height) {
+	if(max_color != stack.max_color) {
+	  cout << "Error: ppm header info does not match. Continuing anyways..." << endl;
+	}
+      }
+    }
+  }
+
   for(int i = 0; i < (width * height); i++) {
     pixels[i].red += stack.pixels[i].red;
     pixels[i].green += stack.pixels[i].green;
     pixels[i].blue += stack.pixels[i].blue;
   }
-
+  
   if(index == denominator) { // Divides on last call
     for(int i = 0; i < (width * height); i++) {
       pixels[i].red = pixels[i].red / denominator;

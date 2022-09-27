@@ -1,14 +1,12 @@
-#
 # @file Makefile
 # @author Kyle Byassee
-# @date 2022-09-13
+# @date 2022-09-26
 # @brief Makefile
 # 
-# A Makefile for testing
-#
+# A Makefile for image stacker
 
 # The build target
-TARGET = test
+TARGET = stacker
 
 # The compiler g++
 CC = g++

@@ -1,16 +1,10 @@
-//???REMOVE ME BEFORE FINAL PUSH
-/*
-Anywhere you see ??? it means I have a note/question I want you to be sure and review.
-I believe control + s ??? will allow you to find all instances of ???.
-*/
-
 /**
  * @file stacker.h
- * @author Darren Clark
+ * @author Kyle Byassee
  * @date 2022-09-26
- * @brief Defines the class stacker, its members and methods.
+ * @brief Defines the class stacker, it's members and methods.
  * 
- * Header file to declare and initialize members and methods of class Stacker.
+ * Header file to declare and initialize members and methods of the stacker class.
  */
 
 #ifndef STACKER_H
@@ -19,72 +13,68 @@ I believe control + s ??? will allow you to find all instances of ???.
 #include <string>
 #include <vector>
 
-//??? I think classes are typically spelled with a capital? so class Stacker {
-
 /**
- * Class stacker opens a user requested file that contains several 
- * images. Each image has its own rgb values, which the program will 
- * read and sum all together. Next it will find their averages by
- * dividing the totals by the number of images. It writes the results
- * to an output file, which when opened in an image viewing program, will
- * display a noise free image.
+ * The stacker class opens a user requested folder that contains several images in ppm format. 
+ * Each pixel of each image has its own rgb values, which the program will read and then sum each corresponding pixel together. 
+ * Next it will find their averages by dividing the totals by the number of images. It writes the results to an output ppm file, 
+ * which when opened in an image viewing program, will display a noise free image.
  *
  * @class stacker stacker.h "Image-Stacker/stacker.h"
- * @brief A custom class to take data from a file, compute it, and 
- * write the results to an output file producing a cleaner image.
-
+ * @brief A custom class to take data from a ppm file, compute it, and write the results to an output ppm file. With the goal of producing a more clear image
+ *
  */
 class stacker {
 private:
   std::string magic_number = ""; // The P3 value
-  int width = 0; // The image width: (600 rows) x (600 columns)
+  int width = 0; // The image width: (rows) * (columns)
   int height = 0; // The image height
   int max_color = 0; // The maximum color depth of the image: < 256
   
-  struct p { // A struct containing three ints: red, green, and blue
+  struct pixel { // A struct containing three ints: red, green, and blue
     int red = 0;
     int green = 0;
     int blue = 0;
   };  
 
-  std::vector<p> pixels; // A vector of pixel structs storing color information for the stacked image
+  std::vector<pixel> pixels; // A vector of pixel structs storing color information for the stacked image
 
  public:
+/**
+ * A constructor for the stacker class.
+ *
+ * @post A properly constructed object.
+ * 
+ */
+  stacker();
 
 /**
- * Method to open the user requested file.
+ * Method to set the private data members of a stacker object from a ppm file.
  *
  * @param std::string filename String variable containing the name of the file to be opened.
- * @param int index ???
+ * @param int index The index of the loop.
  * @pre String filename and int index have been declared and initialized to appropriate values.
- * @return void 
- * @post String filename has been assigned a value of a file to open and int index ???
+ * @post The private members of one object have been set. One object to one ppm.
  * 
  */
   void load_data(std::string filename, int index);
   
-
 /**
- * Method to find the average value of all images rgb values.
+ * Method to find the average value of all stacked pixel values.
  *
- * @param int denominator is the number of images being used.
- * @param int index ???
- * @param stacker& stacked_pixels Vector to contain the color values of the stacked image. ???
- * @pre int denominator has a value.
- * @return void 
- * @post ???
+ * @param int denominator The number of ppms being averaged.
+ * @param int index The index of the loop.
+ * @param stacker& stacked_pixels The address of the stacker object to be included in the average.
+ * @pre The referenced stacker object should be properly loaded.
+ * @post The private data members are now the average value of the stacked pixels.
  * 
  */
-  void average(int denominator, int index, stacker& stacked_pixels);
-  
+  void average(int denominator, int index, stacker& stack);
 
 /**
  * Writes the calculated values and data to a new file.
  *
- * @param std::string filename holds the name of the file to be opened.
- * @pre filename has been given a value.
- * @return void 
- * @post the file is opened and contents are written into it. ???
+ * @param std::string filename Holds the name of the file to be written.
+ * @post The file is opened and the ppm contents are written into it.
  * 
  */
   void write_data(std::string filename);
