@@ -24,7 +24,7 @@ This is a place for our files for the image noise reduction assignment.
   * Contains the definitions of the methods for the stacker class.
 
 * main.cpp
-  * A numbered main.cpp that contains the main function and interacts with the user.
+  * Contains the main function and interacts with the user.
 
 ## Compilation Instructions
 How do we compile your program?

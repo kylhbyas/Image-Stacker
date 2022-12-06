@@ -18,6 +18,23 @@
 
 using namespace std;
 
+
+/**
+ * Removes garbage from a stream
+ *
+ * @param istream& stream
+ * @pre call in main() { while(in.fail()) { fixer(cin); } }
+ * @return void 
+ * @post fixes streams
+ * 
+ */
+void fixer(istream& stream) {
+  string garbage;
+  s.clear();
+  s >> garbage;
+  cout << "removed garbage: " << garbage << endl;
+}
+
 int main() {
   
   // The magnitude of ppms that can be averaged in this program: 10^power
